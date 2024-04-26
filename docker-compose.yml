@@ -1,0 +1,54 @@
+---
+
+services:
+
+  front_next:
+    container_name: next-app
+    build: 
+      context: ./frontend/next-app  #ルートディレクトリ
+      dockerfile: ./dev.dockerfile
+      target: dev
+    tty: true
+    ports:
+      - '3000:3000'
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - ./frontend/next-app:/app
+      - node_modules:/app/node_modules
+
+  back_go:
+    container_name: go-api
+    build:
+      context: ./backend
+      dockerfile: ./dev.dockerfile
+      target: dev
+    tty: true
+    ports:
+      - '8000:8080'
+    env_file:
+      - ./backend/.go_env
+    volumes:
+      - ./backend/src:/go/src/go_api
+
+  db:
+    container_name: yokoso_mysql
+    build:
+      context: ./db
+      dockerfile: ./dev.dockerfile
+    platform: linux/amd64
+    expose:
+      - ${DB_PORT}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${ROOT_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+    volumes:
+      - ./mysql/DB:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    tty: true
+
+volumes:
+  node_modules:
+  db_data:

@@ -10,7 +10,7 @@ services:
       target: dev
     tty: true
     ports:
-      - '3000:3000'
+      - ${NEXT_PORT}:3000
     env_file:
       - ./frontend/.env
     volumes:
@@ -25,7 +25,7 @@ services:
       target: dev
     tty: true
     ports:
-      - '8000:8080'
+      - ${GO_PORT}:8080
     env_file:
       - ./backend/.go_env
     volumes:

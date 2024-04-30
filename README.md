@@ -14,3 +14,6 @@
 
 <h3>dockerのコンテナの停止と削除</h3>
 <pre>docker compose down</pre>
+
+<h3>dockerコンテナへの入り方</h3>
+<pre>docker exec -it コンテナ名orコンテナID sh</pre>

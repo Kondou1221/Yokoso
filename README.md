@@ -1,7 +1,9 @@
 # Yokoso
 
 <h3>envファイルの編集</h3>
-<p>example.envをコピーして.envを作って編集する</p>
+<p>example.envをコピーして.envを作る</p>
+<p>backendフォルダにあるexample.go_envをコビーして.go_envを作る</p>
+<p></p>
 
 <h3>dockerのイメージ作成</h3>
 <pre>docker compose build</pre>

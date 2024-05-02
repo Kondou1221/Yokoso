@@ -4,7 +4,7 @@ FROM base as dev
 
 WORKDIR /app
 
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+COPY ./next-app/package.json ./next-app/yarn.lock* ./next-app/package-lock.json* ./next-app/pnpm-lock.yaml* ./
 
 RUN \
     if [ -f yarn.lock ]; then yarn install --frozen-lockfile; \
@@ -13,7 +13,6 @@ RUN \
     else echo "Lockfileがありません" && exit 1; \
     fi
 
-COPY next.config.mjs .
-COPY tsconfig.json .
+COPY ./next-app/tsconfig.json .
 
 CMD [ "yarn", "dev" ]

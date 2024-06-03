@@ -1,32 +1,18 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
-
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+    "yokoso_api/controller"
+    "github.com/labstack/echo/v4"
 )
 
-var e = createMux()
-
 func main() {
-	fmt.Print("hoge")
-	e.GET("/", articleIndex)
 
-	e.Logger.Fatal(e.Start(":8080"))
-}
+     // Echoのインスタンスを作成
+     e := echo.New()
 
-func createMux() *echo.Echo {
-	e := echo.New()
-
-	e.Use(middleware.Recover())
-	e.Use(middleware.Logger())
-	e.Use(middleware.Gzip())
-
-	return e
-}
-
-func articleIndex(c echo.Context) error {
-	return c.String(http.StatusOK, "Hello, World!")
+     // ルーターを設定
+     e.GET("/category", controller.ApiCategory)
+ 
+     // サーバーを開始
+     e.Start(":8080")
 }

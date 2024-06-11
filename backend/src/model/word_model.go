@@ -5,5 +5,6 @@ type Word struct {
 	Scene           string    `json:"scene" gorm:"type:varchar(500);not null"`
 	WordTranslation string    `json:"word_translation" gorm:"type:varchar(255);not null"`
 	Pronunciation   string    `json:"pronunciation" gorm:"type:varchar(255);not null"`
+	Japanese        string    `json:"japanese" gorm:"type:varchar(255);not null"`
 	CategoryID      int       `json:"category_id"`
 }

@@ -12,6 +12,7 @@ func main() {
 
      // ルーターを設定
      e.GET("/category", controller.ApiCategory)
+     e.GET("/event", controller.ApiFestival)
  
      // サーバーを開始
      e.Start(":8080")

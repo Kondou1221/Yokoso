@@ -12,10 +12,9 @@ import (
 )
 
 func ApiCategory(c echo.Context) error {
-	db := database.Connect()
-	defer db.Close()
-	categories, err := repository.GetCategories(db)
-	
+	dbCon := db.NewDB()
+	defer db.CloseDB(dbCon)
+	categories, err := repository.GetCategories(dbCon)
 	if err != nil {
 		// エラーハンドリング
 		fmt.Println("カテゴリの取得に失敗しました:", err)

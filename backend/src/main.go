@@ -14,6 +14,7 @@ func main() {
      e.GET("/category", controller.ApiCategory)
      e.GET("/event", controller.ApiFestival)
      e.GET("/manner/:id", controller.ApiManner)
+     e.GET("/word/:id", controller.ApiWord)
  
      // サーバーを開始
      e.Start(":8080")

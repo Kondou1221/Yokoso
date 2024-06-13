@@ -9,7 +9,7 @@ COPY src/go.mod src/go.sum ./
 RUN go mod download
 EXPOSE 8080
 
-CMD ["go", "run", "main.go"]
+# CMD ["go", "run", "main.go"]
 
 # FROM golang:1.22-bullseye as builder
 

@@ -1,34 +1,32 @@
-FROM golang:1.22-bullseye as dev
+FROM golang:1.22-bullseye as base
 
 ENV ROOT=/go/src/go_api
 ENV CGO_ENABLED 0
 ENV GOOS=linux
 WORKDIR ${ROOT}
 
-COPY src/go.mod src/go.sum ./
-RUN go mod download
+FROM base as dev
+
 EXPOSE 8080
 
-# CMD ["go", "run", "main.go"]
+COPY src/go.mod src/go.sum ./
+RUN go mod download
 
-# FROM golang:1.22-bullseye as builder
+FROM base as builder
 
-# ENV ROOT=/go/src/app
-# WORKDIR ${ROOT}
+# RUN apk update && apk add git
+COPY  ./src .
 
-# # RUN apk update && apk add git
-# COPY go.mod go.sum ./
-# RUN go mod download
+RUN go mod download
 
-# COPY . ${ROOT}
-# RUN CGO_ENABLED=0 GOOS=linux go build -o $ROOT/binary
+RUN go build -o ./yokoso_api
 
 
-# FROM scratch as prod
+FROM scratch as prod
 
-# ENV ROOT=/go/src/app
-# WORKDIR ${ROOT}
-# COPY --from=builder ${ROOT}/binary ${ROOT}
+WORKDIR /app
 
-# EXPOSE 8080
-# CMD ["/go/src/app/binary"]
+COPY --from=builder /go/src/go_api/yokoso_api /go/src/go_api/.env ./
+
+EXPOSE 8080
+CMD ["./yokoso_api"]

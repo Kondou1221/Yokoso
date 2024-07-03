@@ -2,21 +2,6 @@
 
 services:
 
-  # front_next:
-  #   container_name: next-app
-  #   build: 
-  #     context: ./frontend  #ルートディレクトリ
-  #     dockerfile: ./dev.dockerfile
-  #     target: dev
-  #   tty: true
-  #   ports:
-  #     - ${NEXT_PORT}:3000
-  #   env_file:
-  #     - ./frontend/.next_env
-  #   volumes:
-  #     - ./frontend/next-app:/app
-  #     - node_modules:/app/node_modules
-
   back_go:
     container_name: go-api
     build:
@@ -35,20 +20,24 @@ services:
 
   db:
     container_name: yokoso_mysql
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     build:
       context: ./db
       dockerfile: ./dev.dockerfile
     platform: linux/amd64
     ports:
-      - 13306:3306
+      - ${DB_PORT}:3306
     tty: true
     restart: always
+    environment:
+      - MYSQL_USER=${DB_USER}
+      - MYSQL_PASSWORD=${DB_PASS}
+      - MYSQL_DATABASE=yokoso
+      - MYSQL_ROOT_PASSWORD=${ROOT_PASS}
+      - LANG=ja_JP.UTF-8
     networks:
       - yokoso
 
 volumes:
-  node_modules:
   db_data:
 
 networks:

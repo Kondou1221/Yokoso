@@ -1,14 +1,6 @@
 #使うDockerイメージ
 FROM mysql:8.0-debian
 
-#ポートを開ける
-EXPOSE 3306
-
-ENV MYSQL_USER=user
-ENV MYSQL_PASSWORD=password
-ENV MYSQL_DATABASE=yokoso
-ENV MYSQL_ROOT_PASSWORD=root
-ENV LANG=ja_JP.UTF-8
 #MySQL設定ファイルをイメージ内にコピー
 COPY ./my.cnf /etc/mysql/conf.d/my.cnf
 
@@ -19,4 +11,4 @@ RUN apt-get update && apt-get install -y locales \
     && update-locale LANG=ja_JP.UTF-8
 
 #docker runに実行される
-CMD ["mysqld"]
+CMD ["mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci"]

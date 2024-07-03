@@ -1,31 +1,19 @@
-// repository/category.go
 package repository
 
 import (
-	"yokoso_api/model"
-	"database/sql"
 	"fmt"
+	"yokoso_api/model"
+
+	"gorm.io/gorm"
 )
 
 // GetCategories はデータベースからカテゴリ情報を取得して返す
-func GetCategories(db *sql.DB) ([]model.Category, error) {
-	rows, err := db.Query("SELECT * FROM category")
-	if err != nil {
-		return nil, fmt.Errorf("カテゴリ情報の取得に失敗しました: %v", err)
-	}
-	defer rows.Close()
-
+func GetCategories(db *gorm.DB) ([]model.Category, error) {
 	var categories []model.Category
-
-	for rows.Next() {
-		var category model.Category
-		if err := rows.Scan(&category.CategoryID, &category.CategoryName); err != nil {
-			return nil, fmt.Errorf("カテゴリ情報のスキャンに失敗しました: %v", err)
-		}
-		categories = append(categories, category)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, fmt.Errorf("カテゴリ情報の取得中にエラーが発生しました: %v", err)
+	// 必要なフィールドのみを選択
+	result := db.Select("category_id", "category_name").Order("category_id asc").Find(&categories)
+	if result.Error != nil {
+		return nil, fmt.Errorf("カテゴリ情報の取得に失敗しました: %v", result.Error)
 	}
 
 	return categories, nil

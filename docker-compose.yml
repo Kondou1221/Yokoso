@@ -30,25 +30,26 @@ services:
       - ./backend/.go_env
     volumes:
       - ./backend/src:/go/src/go_api
+    networks:
+      - yokoso
 
   db:
     container_name: yokoso_mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     build:
       context: ./db
       dockerfile: ./dev.dockerfile
     platform: linux/amd64
-    # expose:
-    #   - ${DB_PORT}
-    environment:
-      MYSQL_ROOT_PASSWORD: ${ROOT_PASS}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASS}
-    volumes:
-      - ./db/DB:/docker-entrypoint-initdb.d
-      - db_data:/var/lib/mysql
+    ports:
+      - 13306:3306
     tty: true
+    restart: always
+    networks:
+      - yokoso
 
 volumes:
   node_modules:
   db_data:
+
+networks:
+  yokoso:

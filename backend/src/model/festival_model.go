@@ -7,6 +7,7 @@ import(
 type Festival struct {
     FestivalID        			int         		`gorm:"primaryKey;autoIncrement" json:"festival_id"`
     FestivalName      			string      		`gorm:"type:varchar(255); not null" json:"festival_name"`
+	FestivalPrefecture          string              `gorm:"type:varchar(255); not null" json:"festival_prefecture"`
     FestivalDate      			time.Time   		`gorm:"type:date; not null" json:"festival_date"`
 	FestivalAddress   			string      		`gorm:"type:varchar(255); not null" json:"festival_address"`
 	FestivalStartTime 			time.Time   		`gorm:"type:time; not null" json:"festival_start_time"`

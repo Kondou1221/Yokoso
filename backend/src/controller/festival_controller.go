@@ -63,7 +63,7 @@ func ApiFestival(c echo.Context) error {
 			FestivalDate:        festival.FestivalDate.Format(time.RFC3339),
 			FestivalStartTime:   festival.FestivalStartTime.Format(time.RFC3339),
 			FestivalEndTime:     festival.FestivalEndTime.Format(time.RFC3339),
-			FestivalPrefecture:  festival.FestivalAddress, 
+			FestivalPrefecture:  festival.FestivalPrefecture , 
 			FestivalAddress:     festival.FestivalAddress,
 			FestivalLatitude:    fmt.Sprintf("%f", festival.FestivalLatitude),
 			FestivalLongitude:   fmt.Sprintf("%f", festival.FestivalLongitude),

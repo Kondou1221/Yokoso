@@ -14,7 +14,7 @@ func GetFestivals(db *gorm.DB) ([]model.Festival, []model.FestivalImg, []model.F
 	var festivalDescriptions []model.FestivalDescription
 
 	// フェスティバル情報を取得
-	fes := db.Select("festival_id", "festival_name", "festival_date", "festival_address", "festival_start_time", "festival_end_time", "festival_latitude", "festival_longitude").Order("festival_id asc").Find(&festivals)
+	fes := db.Select("festival_id", "festival_name", "festival_prefecture", "festival_date", "festival_address", "festival_start_time", "festival_end_time", "festival_latitude", "festival_longitude").Order("festival_id asc").Find(&festivals)
 	if fes.Error != nil {
 		return nil, nil, nil, fmt.Errorf("祭り情報の取得に失敗しました: %v", fes.Error)
 	}

@@ -26,7 +26,7 @@ FROM scratch as prod
 
 WORKDIR /app
 
-COPY --from=builder /go/src/go_api/yokoso_api /go/src/go_api/.env ./
+COPY --from=builder /go/src/go_api/yokoso_api ./
 
 EXPOSE 8080
 CMD ["./yokoso_api"]

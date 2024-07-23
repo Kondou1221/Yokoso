@@ -18,4 +18,4 @@
 <pre>docker compose down</pre>
 
 <h3>dockerコンテナへの入り方</h3>
-<pre>docker exec -it コンテナ名orコンテナID sh</pre>
+<pre>docker exec -it コンテナ名orコンテナID sh</pre># Yokoso-backend
